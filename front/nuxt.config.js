@@ -4,7 +4,7 @@ export default {
   server: {
     port: 8080
   },
-  
+
   // Disable server-side rendering: https://go.nuxtjs.dev/ssr-mode
   ssr: false,
 
@@ -45,7 +45,15 @@ export default {
 
   // Modules: https://go.nuxtjs.dev/config-modules
   modules: [
+    '@nuxtjs/axios',
+    '@nuxtjs/proxy',
   ],
+
+  proxy: {
+    '/api': {
+      target: 'http://localhost:3000/'
+    }
+  }
 
   // Vuetify module configuration: https://go.nuxtjs.dev/config-vuetify
   vuetify: {
