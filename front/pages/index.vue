@@ -27,7 +27,7 @@ export default {
   },
   methods: {
     getApi(){
-      const url = "/api/v1/hello"
+      const url = "/api/v1/posts"
       this.$axios.get(url)
       .then((res) => {
         this.message = res.data
