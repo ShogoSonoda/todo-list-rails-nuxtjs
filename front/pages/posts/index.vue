@@ -51,6 +51,16 @@ export default {
     this.fetchContents()
   },
 
+  computed: {
+    params() {
+      return {
+        post: {
+          content: this.content
+        }
+      }
+    }
+  },
+
   methods: {
     fetchContents() {
       const url = "/api/v1/posts"
@@ -62,6 +72,16 @@ export default {
 
         })
     },
+    save() {
+      const url = "/api/v1/posts"
+      this.$axios.post(url, this.params)
+        .then((res) => {
+
+        })
+        .catch((err) => {
+          
+        })
+    }
   }
 }
 </script>
