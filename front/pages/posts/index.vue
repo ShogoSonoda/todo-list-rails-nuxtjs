@@ -1,13 +1,41 @@
 <template>
-  <div class="container py-5">
+  <div class="container py-5 position-relative">
     <b-card
       v-for="post in posts"
       :key="post.id"
     >
-    <b-card-text>
-      {{ post.content }}
-    </b-card-text>
+      <b-card-text>
+        {{ post.content }}
+      </b-card-text>
     </b-card>
+
+    <b-button
+      v-b-modal.new-modal
+      class="position-absolute mt-4 action-btn"
+      pill
+      variant="primary"
+      size="lg"
+    >
+      +
+    </b-button>
+
+    <b-modal
+      hide-header
+      hide-footer
+      id="new-modal"
+    >
+      <b-form-textarea
+        v-model="content"
+        autofocus
+      />
+      <b-button
+        class="mt-3"
+        variant="primary"
+        @click="save()"
+      >
+      保存
+      </b-button>
+    </b-modal>
   </div>
 </template>
 
@@ -28,7 +56,7 @@ export default {
       const url = "/api/v1/posts"
       this.$axios.get(url)
         .then((res) => {
-          console.log(res)
+          this.posts = res.data.posts
         })
         .catch(() => {
 
@@ -38,6 +66,8 @@ export default {
 }
 </script>
 
-<style>
-
+<style scoped>
+.action-btn {
+  right: 16px;
+}
 </style>
