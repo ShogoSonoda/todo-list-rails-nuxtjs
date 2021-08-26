@@ -3,6 +3,8 @@
     <b-card
       v-for="post in posts"
       :key="post.id"
+      class="cursor-pointer"
+      @click="toShow(post.id)"
     >
       <b-card-text>
         {{ post.content }}
@@ -68,6 +70,9 @@ export default {
   },
 
   methods: {
+    toShow(id) {
+      this.$router.push(`/posts/${id}`)
+    },
     fetchContents() {
       const url = "/api/v1/posts"
       this.$axios.get(url)
