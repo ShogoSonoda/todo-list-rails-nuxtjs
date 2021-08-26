@@ -13,6 +13,13 @@ module Api
           render json: '作成に失敗しました', status: 500
         end
       end
+
+      def show
+        @post = Post.find_by(id: params[:id])
+        unless @post
+          render json: @post, status: 500
+        end
+      end
     end
   end
 end
