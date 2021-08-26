@@ -31,6 +31,7 @@
       <b-button
         class="mt-3"
         variant="primary"
+        :disabled="disabled"
         @click="save()"
       >
       保存
@@ -44,6 +45,7 @@ export default {
   data: () => {
     return {
       posts: [],
+      content: '',
     }
   },
 
@@ -52,6 +54,10 @@ export default {
   },
 
   computed: {
+    disabled() {
+      return this.content.length === 0
+    },
+
     params() {
       return {
         post: {
@@ -68,18 +74,27 @@ export default {
         .then((res) => {
           this.posts = res.data.posts
         })
-        .catch(() => {
-
-        })
     },
+
     save() {
       const url = "/api/v1/posts"
       this.$axios.post(url, this.params)
         .then((res) => {
-
+          console.log(res)
+          this.$bvModal.hide('new-modal')
+          this.content = ''
+          this.fetchContents()
+          this.$bvToast.toast(res.data, {
+            title: '成功',
+            variant: 'success'
+          })
         })
         .catch((err) => {
-          
+          const message = err.response.data
+          this.$bvToast.toast(message, {
+            title: 'エラー',
+            variant: 'danger'
+          })
         })
     }
   }
