@@ -17,6 +17,14 @@
       >
         編集
       </b-button>
+
+      <b-button
+        v-b-modal.confirm-delete
+        size="sm"
+        variant="danger"
+      >
+        削除
+      </b-button>
     </b-card>
 
     <b-modal
@@ -36,6 +44,14 @@
     >
       更新
     </b-button>
+    </b-modal>
+
+    <b-modal
+      id="confirm-delete"
+      hide-header
+      @ok="destroy()"
+    >
+      <p>投稿を削除しますか？</p>
     </b-modal>
   </div>
 </template>
@@ -91,6 +107,20 @@ export default {
             title: '成功',
             variant: 'success'
           })
+        })
+        .catch((err) => {
+          const message = err.response.data
+          this.$bvToast.toast(message, {
+            title: 'エラー',
+            variant: 'danger'
+          })
+        })
+    },
+    destroy() {
+      const url = `/api/v1/posts/${this.$route.params.id}`
+      this.$axios.delete(url)
+        .then(() => {
+          this.toTop()
         })
         .catch((err) => {
           const message = err.response.data

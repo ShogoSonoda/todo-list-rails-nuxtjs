@@ -29,6 +29,15 @@ module Api
           render json: '更新に失敗しました。', status: 500
         end
       end
+
+      def destroy
+        post = Post.find(params[:id])
+        if post.destroy
+          render json: '削除に成功しました。', status: 200
+        else
+          render json: '削除に失敗しました。', status: 500
+        end
+      end
     end
   end
 end
