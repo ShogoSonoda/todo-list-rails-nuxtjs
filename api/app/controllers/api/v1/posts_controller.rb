@@ -20,6 +20,15 @@ module Api
           render json: @post, status: 500
         end
       end
+
+      def update
+        post = Post.find_by(id: params[:id])
+        if post.update(content: params[:post][:content])
+          render json: '更新に成功しました。', status: 200
+        else
+          render json: '更新に失敗しました。', status: 500
+        end
+      end
     end
   end
 end
