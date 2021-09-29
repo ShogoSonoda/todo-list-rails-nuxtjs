@@ -14,6 +14,7 @@
 <script>
 import Logo from '~/components/NuxtLogo.vue'
 import VuetifyLogo from '~/components/VuetifyLogo.vue'
+import firebase from '../../plugins/firebase'
 
 export default {
   components: {
@@ -36,6 +37,9 @@ export default {
         console.log(error)
       })
     }
+  },
+  mounted() {
+    console.log(firebase.auth())
   }
 }
 </script>
